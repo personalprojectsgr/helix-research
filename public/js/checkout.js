@@ -209,6 +209,23 @@
     });
   }
 
+  function readCheckoutFormUser() {
+    const form = document.getElementById('checkout-form');
+    if (!form) return {};
+    const fd = new FormData(form);
+    const u = {
+      email: fd.get('email') || undefined,
+      firstName: fd.get('firstName') || undefined,
+      lastName: fd.get('lastName') || undefined,
+      phone: fd.get('phone') || undefined,
+      city: fd.get('city') || undefined,
+      zip: fd.get('zip') || undefined,
+      country: fd.get('country') || undefined,
+    };
+    Object.keys(u).forEach((k) => { if (!u[k]) delete u[k]; });
+    return u;
+  }
+
   function fireAddPaymentInfo() {
     const items = (window.HELIX_CART && window.HELIX_CART.read()) || [];
     if (items.length === 0 || !window.HELIX_TRACK) return;
@@ -218,7 +235,7 @@
       content_type: 'product',
       currency: window.HELIX.currency || 'USD',
       value,
-    });
+    }, { user: readCheckoutFormUser() });
   }
 
   function placeOrder(e) {
