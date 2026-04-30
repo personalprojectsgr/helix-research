@@ -34,7 +34,7 @@ module.exports = function buildPagesRouter({ catalog }) {
 
   router.get('/category/:id', (req, res) => {
     const cat = catalog.getCategory(req.params.id);
-    if (!cat) return res.status(404).render('error', { title: 'Category not found', code: 404, message: 'No such category.' });
+    if (!cat) return res.status(404).render('error', { title: 'Category not found', code: 404, message: 'No such category.', pageContext: 'error' });
     const products = catalog.byCategory.get(cat.id) || [];
     res.render('shop', {
       title: `${cat.name} \u2014 Helix Research`,
@@ -49,7 +49,7 @@ module.exports = function buildPagesRouter({ catalog }) {
 
   router.get('/p/:slug', (req, res) => {
     const product = catalog.getProduct(req.params.slug);
-    if (!product) return res.status(404).render('error', { title: 'Product not found', code: 404, message: 'No such peptide.' });
+    if (!product) return res.status(404).render('error', { title: 'Product not found', code: 404, message: 'No such peptide.', pageContext: 'error' });
     const cat = catalog.getCategory(product.category);
     res.render('product', {
       title: `${product.name} \u2014 ${product.size} \u2014 Helix Research`,
@@ -123,7 +123,7 @@ module.exports = function buildPagesRouter({ catalog }) {
     if (!post) {
       return res
         .status(404)
-        .render('error', { title: 'Article not found', code: 404, message: 'No such article in the Journal.' });
+        .render('error', { title: 'Article not found', code: 404, message: 'No such article in the Journal.', pageContext: 'error' });
     }
     res.render('post', {
       title: `${post.title} \u2014 Helix Journal`,

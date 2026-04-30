@@ -10,7 +10,7 @@ module.exports = function buildOrderRouter() {
   router.get('/order/success/:id', async (req, res) => {
     const order = orders.getOrder(req.params.id);
     if (!order) {
-      return res.status(404).render('error', { title: 'Order not found', code: 404, message: 'No such order.' });
+      return res.status(404).render('error', { title: 'Order not found', code: 404, message: 'No such order.', pageContext: 'error' });
     }
     let current = order;
     if (current.status === 'awaiting_payment' && orders.isStale(current, 5000) && plisio.isConfigured() && current.payment.txnId) {
@@ -30,7 +30,7 @@ module.exports = function buildOrderRouter() {
   router.get('/order/cancelled/:id', async (req, res) => {
     const order = orders.getOrder(req.params.id);
     if (!order) {
-      return res.status(404).render('error', { title: 'Order not found', code: 404, message: 'No such order.' });
+      return res.status(404).render('error', { title: 'Order not found', code: 404, message: 'No such order.', pageContext: 'error' });
     }
     let current = order;
     if (current.status === 'awaiting_payment' && plisio.isConfigured() && current.payment.txnId) {

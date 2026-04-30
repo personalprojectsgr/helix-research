@@ -76,6 +76,7 @@ app.use((req, res) => {
     title: 'Page not found',
     code: 404,
     message: "We couldn't find what you were looking for.",
+    pageContext: 'error',
   });
 });
 
@@ -85,6 +86,7 @@ app.use((err, req, res, _next) => {
     title: 'Something went wrong',
     code: 500,
     message: 'An unexpected error occurred. Please try again.',
+    pageContext: 'error',
   });
 });
 
@@ -100,12 +102,12 @@ process.on('uncaughtException', (err) => {
   app.listen(PORT, () => {
     Log.startup(PORT, STORE_NAME, TRACKING_ENABLED, catalog.products.length, catalog.categories.length);
     if (PLISIO_ENABLED) {
-      Log.system('🪙', `Plisio crypto checkout ENABLED`);
+      Log.ok('Plisio crypto checkout ENABLED', 'plisio');
     } else {
-      Log.system('⚠️ ', `Plisio not configured — set PLISIO_API_KEY in .env to enable crypto checkout`);
+      Log.warn('Plisio not configured - set PLISIO_API_KEY in .env to enable crypto checkout', 'plisio');
     }
     if (!process.env.PLISIO_PUBLIC_BASE_URL) {
-      Log.system('ℹ️ ', `PLISIO_PUBLIC_BASE_URL not set — webhooks won't deliver to localhost. Polling fallback will be used.`);
+      Log.warn("PLISIO_PUBLIC_BASE_URL not set - webhooks won't deliver to localhost. Polling fallback will be used.", 'plisio');
     }
   });
 })();

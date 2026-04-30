@@ -1,7 +1,7 @@
 <script src="/static/js/ui.js" defer></script>
 <script src="/static/js/tracking.js" defer></script>
 <script src="/static/js/cart.js" defer></script>
-<% if (typeof pageContext !== 'undefined' && pageContext === 'shop' || pageContext === 'category') { %>
+<% if (typeof pageContext !== 'undefined' && (pageContext === 'shop' || pageContext === 'category')) { %>
 <script src="/static/js/catalog.js" defer></script>
 <% } %>
 <% if (typeof pageContext !== 'undefined' && pageContext === 'product') { %>
