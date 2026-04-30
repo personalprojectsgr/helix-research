@@ -1,0 +1,27 @@
+<%- include('../partials/legal-layout', {
+  legalTitle: 'Refund Policy',
+  legalBody: `
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">Our policy in brief</h2>
+    <p>Because peptide products are temperature-sensitive and quality-controlled cold-chain shipments, we cannot accept returns of opened or unsealed vials. We will, however, replace or refund orders that arrive damaged, incorrect, or that fail our internal QC.</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">Eligible cases</h2>
+    <ul class="list-disc pl-5 space-y-2">
+      <li><strong>Damaged in transit:</strong> document with photos within 24 hours of delivery and contact us \u2014 we will arrange replacement or refund.</li>
+      <li><strong>Incorrect product shipped:</strong> we will arrange a replacement at our expense.</li>
+      <li><strong>Failed QC after release:</strong> if a batch is recalled post-release, you will be notified and a replacement or refund issued automatically.</li>
+    </ul>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">How to request</h2>
+    <p>Email <a href="/contact" class="link-underline">our research-support team</a> with your order number, photos (for damage claims), and a brief description. We will respond within one business day.</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">Processing time</h2>
+    <p>Approved refunds are processed back to the original payment method within 5\u201310 business days, depending on your bank. Replacements ship via expedited service.</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">Non-refundable</h2>
+    <ul class="list-disc pl-5 space-y-2">
+      <li>Opened or unsealed vials.</li>
+      <li>Products that have been reconstituted or transferred.</li>
+      <li>Orders refused due to address-input errors after dispatch (we will work with you on a re-ship at cost).</li>
+    </ul>
+  `
+}) %>

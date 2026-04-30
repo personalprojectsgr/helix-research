@@ -1,0 +1,40 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="max-w-editorial mx-auto px-5 sm:px-8 py-12 sm:py-16 grid grid-cols-12 gap-x-6 gap-y-8">
+  <div class="col-span-12 lg:col-span-2">
+    <span class="kicker kicker-rule">§ Cart</span>
+  </div>
+
+  <div class="col-span-12 lg:col-span-7">
+    <h1 class="display-lg">Your selection.</h1>
+    <p class="mt-5 lede">Review your research compounds before checkout.</p>
+
+    <div id="cart-page" class="mt-10">
+      <div id="cart-page-empty" class="border border-rule p-12 text-center hidden">
+        <p class="display-md">Empty.</p>
+        <p class="text-ink-3 mt-3">Browse the catalogue to add research peptides.</p>
+        <a href="/shop" class="btn btn-primary mt-6">Open the catalog →</a>
+      </div>
+      <div id="cart-page-items"></div>
+    </div>
+  </div>
+
+  <aside class="col-span-12 lg:col-span-3">
+    <div class="border border-ink p-6 sticky top-28 bg-paper">
+      <p class="kicker mb-5">Summary</p>
+      <dl class="space-y-2.5 text-[0.92rem]">
+        <div class="flex justify-between"><dt class="text-ink-3">Subtotal</dt><dd id="cart-page-subtotal" class="font-mono">$0.00</dd></div>
+        <div class="flex justify-between"><dt class="text-ink-3">Shipping</dt><dd class="font-mono text-ink-4 text-[0.85rem]">at checkout</dd></div>
+        <div class="flex justify-between font-display text-[1.4rem] font-medium pt-4 mt-4 rule-t"><dt>Total</dt><dd id="cart-page-total" class="font-mono">$0.00</dd></div>
+      </dl>
+      <a href="/checkout" id="cart-page-checkout" class="btn btn-primary w-full mt-6">Checkout →</a>
+      <a href="/shop" class="btn btn-ghost w-full mt-2">Continue browsing</a>
+      <p class="mt-6 text-[0.7rem] font-mono uppercase tracking-wider text-ink-4 leading-relaxed">Ships from our Ljubljana fulfilment hub · 2–7 days across the EU.</p>
+    </div>
+  </aside>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

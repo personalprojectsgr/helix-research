@@ -1,0 +1,76 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="max-w-editorial mx-auto px-5 sm:px-8 py-20 sm:py-32 grid grid-cols-12 gap-x-6 gap-y-10"
+      data-order-id="<%= order.id %>"
+      data-order-status="<%= order.status %>">
+
+  <div class="col-span-12 lg:col-span-2">
+    <span class="kicker kicker-rule text-rose">§ <%= order.status === 'expired' ? 'Expired' : (order.status === 'error' ? 'Error' : 'Not completed') %></span>
+  </div>
+
+  <div class="col-span-12 lg:col-span-7">
+    <h1 class="display-xl text-balance">
+      Payment<span class="font-display-italic text-ink-3"> </span><br>not completed.
+    </h1>
+    <p class="mt-8 lede">
+      <% if (order.status === 'expired') { %>
+        Your invoice expired before payment was confirmed on-chain. No funds were taken — you can retry below to generate a fresh invoice for the same items.
+      <% } else if (order.status === 'error') { %>
+        Something went wrong creating your invoice. Try again, or contact us with your order ID.
+      <% } else { %>
+        Your invoice was closed without confirmed payment. No funds were taken on-chain. You can retry below to generate a fresh invoice for the same items.
+      <% } %>
+    </p>
+
+    <div class="mt-12 border border-ink p-6 sm:p-8 max-w-xl">
+      <div class="flex items-center justify-between rule-b pb-4">
+        <span class="kicker">Order ID</span>
+        <span class="chip evidence-pre"><%= order.status %></span>
+      </div>
+      <p class="font-mono text-[1.4rem] sm:text-[1.7rem] font-medium tracking-tight mt-5 leading-none break-all"><%= order.id %></p>
+
+      <div class="mt-6 rule-t pt-5">
+        <% (order.items || []).forEach(function(it) { %>
+        <div class="flex items-center justify-between gap-3 py-2 border-t border-rule first:border-t-0">
+          <span class="truncate">
+            <span class="font-mono text-ink-4 text-[0.78rem] mr-2">×<%= it.qty %></span>
+            <%= it.name %>
+          </span>
+          <span class="font-mono shrink-0 text-[0.85rem]">$<%= Number(it.lineTotal).toFixed(2) %></span>
+        </div>
+        <% }) %>
+        <div class="flex items-center justify-between font-display text-[1.1rem] font-medium pt-4 mt-4 border-t border-ink">
+          <span>Total</span>
+          <span class="font-mono">$<%= Number(order.totalUsd).toFixed(2) %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <button id="retry-payment-btn" class="btn btn-primary" data-order-id="<%= order.id %>">
+        <span id="retry-label">Pay again →</span>
+        <span id="retry-loading" class="hidden">
+          <i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Generating invoice…
+        </span>
+      </button>
+      <a href="/shop" class="btn btn-secondary">Back to shop</a>
+    </div>
+    <p id="retry-error" class="text-[0.85rem] text-rose mt-3 hidden"></p>
+  </div>
+
+  <aside class="col-span-12 lg:col-span-3 lg:pt-2 space-y-8">
+    <div class="rule-t pt-6">
+      <p class="kicker mb-3">No charge</p>
+      <p class="text-[0.92rem] text-ink-3 leading-relaxed">Crypto invoices only settle on-chain. If your wallet didn't broadcast, no funds left it.</p>
+    </div>
+    <div class="rule-t pt-6">
+      <p class="kicker mb-3">Partial payment?</p>
+      <p class="text-[0.92rem] text-ink-3 leading-relaxed">If you sent funds and didn't see confirmation, contact us with your order ID — partial payments can be reconciled manually.</p>
+    </div>
+  </aside>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

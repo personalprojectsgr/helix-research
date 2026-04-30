@@ -1,0 +1,64 @@
+<footer class="mt-auto border-t border-rule">
+  <div class="max-w-editorial mx-auto px-5 sm:px-8 py-16 sm:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-12 gap-x-10">
+      <div class="lg:col-span-5">
+        <a href="/" class="flex items-baseline gap-1.5" aria-label="Helix Research home">
+          <span class="font-display text-3xl leading-none font-medium tracking-tight">Helix</span>
+          <span class="font-display-italic text-lg text-ink-3 leading-none">Research</span>
+        </a>
+        <p class="mt-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-md">
+          Research-grade peptides shipped from our European Union fulfilment hub. cGMP-synthesised, HPLC + LC-MS verified, COA per batch. Plain unmarked packaging, tracked end-to-end. Crypto-only checkout.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-2 text-xs">
+          <span class="chip">EU dispatch</span>
+          <span class="chip">≥98% HPLC</span>
+          <span class="chip">Plain unmarked</span>
+          <span class="chip">Crypto-only</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 lg:col-start-7">
+        <p class="kicker mb-5">Catalog</p>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          <li><a class="link-underline border-b-0 hover:border-b" href="/shop">All peptides</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/shop?sort=best">Best sellers</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/shop?sort=newest">New arrivals</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/shop?evidence=FDA-approved">FDA-approved</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <p class="kicker mb-5">Categories</p>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          <% catalog.categories.slice(0, 5).forEach((c) => { %>
+            <li><a class="link-underline border-b-0 hover:border-b" href="/category/<%= c.id %>"><%= c.name %></a></li>
+          <% }) %>
+          <li><a class="link-underline border-b-0 hover:border-b text-ink-3" href="/shop">All 9 areas →</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <p class="kicker mb-5">House</p>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          <li><a class="link-underline border-b-0 hover:border-b" href="/about">The Lab</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/quality">Quality</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/shipping">Shipping</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/blog">Journal</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/faq">FAQ</a></li>
+          <li><a class="link-underline border-b-0 hover:border-b" href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 rule-t flex flex-col-reverse sm:flex-row gap-5 sm:items-center sm:justify-between">
+      <p class="kicker">© <%= new Date().getFullYear() %> <%= store.name %> · Ljubljana · Slovenia</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-[0.78rem] text-ink-3">
+        <li><a class="hover:text-ink" href="/legal/terms">Terms</a></li>
+        <li><a class="hover:text-ink" href="/legal/privacy">Privacy</a></li>
+        <li><a class="hover:text-ink" href="/legal/refund">Refunds</a></li>
+        <li><a class="hover:text-ink" href="/legal/shipping">Shipping</a></li>
+        <li><a class="hover:text-ink" href="/legal/disclaimer">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

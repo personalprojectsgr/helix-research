@@ -1,0 +1,75 @@
+<%
+  const groups = [
+    { heading: 'Ordering & products', items: [
+      ['Are these products for human use?', 'No. All products are sold strictly for in-vitro and laboratory research purposes. They are not intended for human or animal consumption, diagnosis, treatment, or prevention of any disease.'],
+      ['What is the typical purity?', 'Every compound is verified by reverse-phase HPLC at \u226598%. The exact figure for your batch is documented on the Certificate of Analysis included with your order.'],
+      ['Do you provide a Certificate of Analysis?', 'Yes. A batch-specific COA accompanies every shipment, listing HPLC purity, LC-MS identity, USP <71> sterility, and LAL endotoxin results.'],
+      ['How are the peptides packaged?', 'Lyophilised peptides ship in sealed glass vials with metal crimp caps, packed inside insulated cold-chain mailers with phase-change inserts.'],
+    ]},
+    { heading: 'Shipping & delivery', items: [
+      ['Where do you ship?', 'We ship globally via insulated cold-chain. Standard delivery is 3-5 business days domestically, 5-12 business days internationally.'],
+      ['How are temperature-sensitive products kept stable?', 'Insulated EPS mailers with phase-change cooling inserts maintain transit temperature. For our research, ambient lyophilised peptides remain stable for the full transit window.'],
+      ['Is shipping discreet?', 'Yes. Plain outer packaging with no branding, marked only with the carrier label and required shipping information.'],
+      ['Can I track my order?', 'Tracking details are emailed within 24 hours of dispatch. You can track via the carrier link in that email.'],
+    ]},
+    { heading: 'Storage & handling', items: [
+      ['How should lyophilised peptides be stored?', 'For long-term stability, store sealed lyophilised vials at \u221220 \u00b0C, protected from light and moisture.'],
+      ['How should reconstituted peptides be stored?', 'After reconstitution with bacteriostatic water, store at 2\u20138 \u00b0C and use within 30 days for research integrity. Avoid freeze-thaw cycles.'],
+      ['What should I reconstitute with?', 'Bacteriostatic water (0.9% benzyl alcohol) is the most common diluent for research. Some peptides require specific buffers \u2014 see your COA for compound-specific guidance.'],
+    ]},
+    { heading: 'Quality & testing', items: [
+      ['What testing do you run on every batch?', 'Reverse-phase HPLC purity, LC-MS identity, USP <71> sterility, and LAL endotoxin. Specifications are documented on the COA.'],
+      ['Are the synthesis facilities audited?', 'Yes. All synthesis is performed in cGMP-audited facilities with full reagent traceability and batch record retention.'],
+      ['Can I request batch records or a method memo?', 'Yes \u2014 contact our research team and we will route your request through our QA group.'],
+    ]},
+    { heading: 'Returns & policies', items: [
+      ['What is your return policy?', 'Due to the nature of cold-chain peptide products, we cannot accept returns of opened or unsealed vials. Please review the full Refund Policy for details on damaged or incorrect orders.'],
+      ['What if my order arrives damaged?', 'Document the damage with photos within 24 hours of delivery and contact us. We will arrange a replacement or refund per the Refund Policy.'],
+    ]},
+  ];
+%>
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ FAQ</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h1 class="display-xl text-balance">Frequently <span class="font-display-italic">asked.</span></h1>
+        <p class="mt-8 lede">Can't find what you need? <a href="/contact" class="link-underline">Get in touch</a> with our research team.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-12">
+      <% groups.forEach((group, gi) => { %>
+        <div class="col-span-12 lg:col-span-2 lg:col-start-1 <%= gi > 0 ? 'lg:pt-12' : '' %>">
+          <span class="kicker kicker-rule"><%= String(gi + 1).padStart(2, '0') %></span>
+        </div>
+        <div class="col-span-12 lg:col-span-9 <%= gi > 0 ? 'lg:pt-12' : '' %>">
+          <h2 class="display-md mb-6"><%= group.heading %></h2>
+          <div>
+            <% group.items.forEach((item) => { %>
+              <details class="rule-t group">
+                <summary class="py-5 font-display text-[1.1rem] font-medium cursor-pointer flex items-center justify-between gap-4 list-none">
+                  <span><%= item[0] %></span>
+                  <i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform shrink-0"></i>
+                </summary>
+                <p class="pb-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-prose"><%= item[1] %></p>
+              </details>
+            <% }) %>
+            <div class="rule-t"></div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

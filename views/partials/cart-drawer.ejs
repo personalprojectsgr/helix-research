@@ -1,0 +1,29 @@
+<div id="cart-mask" class="drawer-mask" aria-hidden="true"></div>
+<aside id="cart-drawer" class="drawer" aria-label="Shopping cart" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="flex items-center justify-between px-6 py-5 rule-b">
+    <p class="kicker">Cart <span id="cart-count-inline" class="text-ink-3 ml-2">(0)</span></p>
+    <button type="button" id="cart-close" class="w-8 h-8 grid place-items-center hover:bg-paper-2 transition-colors" aria-label="Close cart">
+      <i data-lucide="x" class="w-[18px] h-[18px]"></i>
+    </button>
+  </div>
+
+  <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 hidden">
+    <p class="display-md">Empty.</p>
+    <p class="text-ink-3 text-[0.92rem] mt-3 mb-6 max-w-xs">Browse the catalogue to add research compounds.</p>
+    <a href="/shop" class="btn btn-primary">Open the catalog →</a>
+  </div>
+
+  <div id="cart-items" class="flex-1 overflow-y-auto px-6"></div>
+
+  <div id="cart-footer" class="rule-t px-6 py-5 hidden">
+    <dl class="space-y-2 text-[0.9rem]">
+      <div class="flex justify-between"><dt class="text-ink-3">Subtotal</dt><dd id="cart-subtotal" class="font-mono">$0.00</dd></div>
+      <div class="flex justify-between"><dt class="text-ink-3">Shipping</dt><dd class="font-mono text-ink-4">at checkout</dd></div>
+      <div class="flex justify-between font-display text-[1.3rem] font-medium pt-3 mt-3 rule-t"><dt>Total</dt><dd id="cart-total" class="font-mono">$0.00</dd></div>
+    </dl>
+    <a href="/checkout" id="cart-checkout-btn" class="btn btn-primary w-full mt-5">Checkout →</a>
+    <p class="text-[0.7rem] font-mono uppercase tracking-wider text-ink-4 mt-4 text-center">Free EU shipping over $250 · ships from Ljubljana</p>
+  </div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>

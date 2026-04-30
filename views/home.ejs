@@ -1,0 +1,226 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-12 sm:pt-20 pb-12 sm:pb-16 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2 flex lg:flex-col gap-2 fade-in-up">
+        <span class="kicker">Vol. 01</span>
+        <span class="kicker text-ink-4 hidden lg:inline-flex">No. <%= String(catalog.products.length).padStart(2, '0') %></span>
+        <span class="kicker text-ink-4 ml-auto lg:ml-0 lg:mt-auto"><%= new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) %></span>
+      </div>
+
+      <div class="col-span-12 lg:col-span-7 fade-in-up" style="animation-delay: 60ms;">
+        <h1 class="display-xl text-balance">
+          The molecule <span class="font-display-italic text-cobalt">is</span><br>the product.
+        </h1>
+        <p class="mt-8 text-[1.05rem] sm:text-[1.15rem] text-ink-3 leading-relaxed max-w-prose">
+          <strong class="text-ink"><%= catalog.products.length %> research compounds</strong> · cGMP-synthesised, HPLC + LC-MS verified, batch-specific COA. Dispatched from our EU fulfilment hub in plain, unmarked packaging. Crypto checkout — no card or bank account.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-x-3 gap-y-3">
+          <a href="#catalog" class="btn btn-primary">Browse the catalog ↓</a>
+          <a href="/shipping" class="btn btn-secondary">Shipping & logistics →</a>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-3 fade-in-up flex lg:items-end" style="animation-delay: 120ms;">
+        <div class="border border-ink p-5 w-full bg-paper">
+          <span class="kicker">Live</span>
+          <ul class="mt-4 space-y-2.5 text-[0.85rem]">
+            <li class="flex justify-between"><span class="text-ink-3">In stock</span><span class="font-mono"><%= catalog.products.length %> SKUs</span></li>
+            <li class="flex justify-between"><span class="text-ink-3">EU dispatch</span><span class="font-mono">2–7 days</span></li>
+            <li class="flex justify-between"><span class="text-ink-3">Avg. purity</span><span class="font-mono text-emerald">≥99.0%</span></li>
+            <li class="flex justify-between"><span class="text-ink-3">Coins accepted</span><span class="font-mono">10+</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip max-w-editorial mx-auto px-5 sm:px-8 border-b border-rule">
+    <div><i data-lucide="map-pin"></i> EU fulfilment hub</div>
+    <div><i data-lucide="package-2"></i> Plain unmarked outer</div>
+    <div><i data-lucide="snowflake"></i> Cold-chain insulated</div>
+    <div><i data-lucide="shield-check"></i> COA per batch</div>
+    <div><i data-lucide="bitcoin"></i> Crypto · no card data</div>
+  </section>
+
+  <section id="catalog" class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8">
+      <header class="grid grid-cols-12 gap-6 mb-10 sm:mb-14">
+        <div class="col-span-12 lg:col-span-2">
+          <span class="kicker kicker-rule">§ 01 · Catalog</span>
+        </div>
+        <div class="col-span-12 lg:col-span-7">
+          <h2 class="display-lg">Featured<br><span class="font-display-italic text-ink-3">research peptides.</span></h2>
+        </div>
+        <div class="col-span-12 lg:col-span-3 flex lg:items-end lg:justify-end">
+          <a href="/shop" class="link-underline text-[0.95rem]">Open full catalog · all <%= catalog.products.length %> →</a>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-2">
+        <% gridProducts.forEach((product) => { %>
+          <%- include('partials/product-card', { product, catalog }) %>
+        <% }) %>
+      </div>
+
+      <div class="mt-12 pt-8 rule-t flex flex-wrap items-center justify-between gap-4">
+        <p class="text-[0.95rem] text-ink-3">Filter by mechanistic class, format, or evidence tier on the full catalog.</p>
+        <a href="/shop" class="btn btn-secondary">Browse all <%= catalog.products.length %> compounds →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-paper-2 rule-y">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8">
+      <header class="grid grid-cols-12 gap-6 mb-10 sm:mb-12">
+        <div class="col-span-12 lg:col-span-2">
+          <span class="kicker kicker-rule">§ 02 · Logistics</span>
+        </div>
+        <div class="col-span-12 lg:col-span-10">
+          <h2 class="display-lg">Built for <span class="font-display-italic">European</span><br>research labs.</h2>
+          <p class="mt-5 lede">EU-based fulfilment, plain unmarked outer, tracked end-to-end. Crypto checkout means no card details, no bank-statement footprint, no third-party processor in the loop.</p>
+        </div>
+      </header>
+
+      <div class="value-prop-grid">
+        <article>
+          <span class="kicker text-cobalt">01 · Dispatch</span>
+          <h3>EU fulfilment hub</h3>
+          <p class="text-[0.92rem] text-ink-3 leading-relaxed">Orders placed before 14:00 CET (Mon–Fri) ship the same business day from our European warehouse. Most EU destinations land in 2–5 working days.</p>
+        </article>
+        <article>
+          <span class="kicker text-cobalt">02 · Packaging</span>
+          <h3>Plain unmarked outer</h3>
+          <p class="text-[0.92rem] text-ink-3 leading-relaxed">No product names, brand marks, or chemical references on the exterior. The return label uses a generic fulfilment ID — your parcel arrives like any other small box.</p>
+        </article>
+        <article>
+          <span class="kicker text-cobalt">03 · Cold-chain</span>
+          <h3>Insulated transit</h3>
+          <p class="text-[0.92rem] text-ink-3 leading-relaxed">EPS mailers with phase-change cooling inserts hold transit temperature for 96 hours. Lyophilised peptides are stable at room temperature; the cold-chain is your safety margin.</p>
+        </article>
+        <article>
+          <span class="kicker text-cobalt">04 · Payment</span>
+          <h3>Crypto-only checkout</h3>
+          <p class="text-[0.92rem] text-ink-3 leading-relaxed">Pay in BTC, ETH, USDT, USDC, LTC, SOL, XMR, TON, TRX, or DOGE via Plisio. We never see card data, never store wallet addresses, and never share your details with a processor.</p>
+        </article>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="/shipping" class="btn btn-primary">Read the full logistics policy →</a>
+        <span class="kicker text-ink-4">Free EU standard shipping over $250</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8">
+      <header class="grid grid-cols-12 gap-6 mb-10 sm:mb-12">
+        <div class="col-span-12 lg:col-span-2">
+          <span class="kicker kicker-rule">§ 03 · Classes</span>
+        </div>
+        <div class="col-span-12 lg:col-span-10">
+          <h2 class="display-lg"><%= catalog.categories.length %> mechanistic <span class="font-display-italic">classes.</span></h2>
+          <p class="mt-5 lede">Organised by mechanism, not by marketing. Each compound is filed by receptor target, not by claim.</p>
+        </div>
+      </header>
+
+      <div class="rule-b">
+        <% catalog.categories.forEach((c, i) => { const count = (catalog.byCategory.get(c.id) || []).length; %>
+          <a href="/category/<%= c.id %>" class="toc-row group">
+            <span class="num"><%= String(i + 1).padStart(2, '0') %></span>
+            <div class="min-w-0">
+              <h3 class="display-sm group-hover:text-cobalt transition-colors"><%= c.name %></h3>
+              <p class="text-[0.92rem] text-ink-3 mt-2 max-w-2xl"><%= c.blurb %></p>
+            </div>
+            <span class="font-mono text-[0.8rem] text-ink-4 hidden md:inline whitespace-nowrap"><%= count %> compound<%= count === 1 ? '' : 's' %></span>
+            <span class="font-mono text-ink-3 group-hover:text-cobalt transition-colors text-xl">→</span>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-paper-2 rule-y">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-6 lg:gap-12">
+      <div class="col-span-12 lg:col-span-7">
+        <span class="kicker kicker-rule mb-5 inline-flex">§ 04 · Quality</span>
+        <h2 class="display-lg mt-4">Every batch carries<br><span class="font-display-italic">its own paperwork.</span></h2>
+        <p class="mt-7 lede">From lyophilisation through release, every step produces an artefact you can verify. No marketing chemistry. No proprietary blends.</p>
+
+        <ol class="mt-10 space-y-0">
+          <li class="grid grid-cols-[64px_1fr] gap-5 py-6 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">01</span>
+            <div>
+              <h4 class="font-display text-[1.2rem] font-medium leading-snug">Solid-phase synthesis</h4>
+              <p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">cGMP-audited facilities. Reagent traceability and full synthesis logs preserved per batch.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[64px_1fr] gap-5 py-6 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">02</span>
+            <div>
+              <h4 class="font-display text-[1.2rem] font-medium leading-snug">HPLC + LC-MS verification</h4>
+              <p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">Reverse-phase HPLC quantitates purity. LC-MS confirms molecular identity against the theoretical mass.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[64px_1fr] gap-5 py-6 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">03</span>
+            <div>
+              <h4 class="font-display text-[1.2rem] font-medium leading-snug">Sterility & endotoxin</h4>
+              <p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">USP &lt;71&gt; sterility and LAL endotoxin screening prior to release.</p>
+            </div>
+          </li>
+          <li class="grid grid-cols-[64px_1fr] gap-5 py-6 rule-y">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">04</span>
+            <div>
+              <h4 class="font-display text-[1.2rem] font-medium leading-snug">Certificate of Analysis</h4>
+              <p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">Batch-specific COA emailed with dispatch. Verifiable by lot number.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="col-span-12 lg:col-span-5 lg:pt-20">
+        <figure class="border border-ink p-6 sm:p-8 bg-paper">
+          <figcaption class="flex items-center justify-between mb-6 pb-4 rule-b">
+            <div>
+              <p class="kicker">Specimen</p>
+              <p class="font-display text-[1.15rem] font-medium mt-1.5">Certificate of Analysis</p>
+            </div>
+            <span class="chip evidence-fda">Verified</span>
+          </figcaption>
+          <table class="spec-table">
+            <tr><th>Compound</th><td>BPC-157 · Body Protection Cmpd</td></tr>
+            <tr><th>Lot / Batch</th><td>2624-A</td></tr>
+            <tr><th>Empirical formula</th><td>C₆₂H₉₈N₁₆O₂₂</td></tr>
+            <tr><th>HPLC purity</th><td class="text-emerald font-medium">99.42 %</td></tr>
+            <tr><th>LC-MS identity</th><td class="text-emerald">Confirmed</td></tr>
+            <tr><th>Sterility USP &lt;71&gt;</th><td class="text-emerald">Pass</td></tr>
+            <tr><th>Endotoxin (LAL)</th><td>&lt; 0.05 EU/mg</td></tr>
+            <tr><th>Storage</th><td>-20 °C, desiccated</td></tr>
+          </table>
+        </figure>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section rule-t bg-ink text-paper">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-7">
+        <span class="kicker text-paper-2 kicker-rule mb-6 inline-flex">§ 05 · The Journal</span>
+        <h2 class="display-lg text-paper mt-4">Read the literature<br><span class="font-display-italic text-paper-3">before you order.</span></h2>
+        <p class="mt-7 text-[1.05rem] text-paper-3 leading-relaxed max-w-prose">The Journal maintains evidence-tier reviews for every compound — mechanism, dosing literature, FDA classification, and references.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-5 flex lg:items-end lg:justify-end">
+        <a href="/blog" class="btn bg-paper text-ink hover:bg-cobalt hover:text-paper transition-colors">Browse the Journal →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

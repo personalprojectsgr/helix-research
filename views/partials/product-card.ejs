@@ -1,0 +1,46 @@
+<%
+  const cat = catalog.getCategory(product.category) || { accent: '#0a0a0a', short: '' };
+  const evidenceClass = ({
+    'FDA-approved':      'evidence-fda',
+    'Phase 3':           'evidence-phase3',
+    'Phase 2':           'evidence-phase2',
+    'Preclinical':       'evidence-preclinical',
+    'Community-derived': 'evidence-community',
+  })[product.evidenceTier] || 'evidence-preclinical';
+  const compactName = product.name.length > 22 ? product.name.replace(/\s\(.*\)$/, '') : product.name;
+%>
+<article class="product-card group" data-product-id="<%= product.id %>" data-product-name="<%= product.name %>" data-product-price="<%= product.price %>" data-product-category="<%= product.category %>">
+  <a href="/p/<%= product.slug %>" class="card-link" aria-label="View <%= product.name %>"></a>
+
+  <div class="card-meta">
+    <span class="kicker" style="color: <%= cat.accent %>;"><%= cat.short %></span>
+    <div class="flex items-center gap-1.5">
+      <% if (product.bestSeller) { %><span class="chip chip-cobalt">Best</span><% } %>
+      <% if (product.new) { %><span class="chip chip-emerald">New</span><% } %>
+      <span class="chip <%= evidenceClass %>"><%= product.evidenceTier %></span>
+    </div>
+  </div>
+
+  <h3 class="card-name"><%= compactName %></h3>
+  <p class="card-sub"><%= product.fullName || product.abbreviation %></p>
+
+  <p class="mt-4 text-[0.95rem] text-ink-3 leading-relaxed line-clamp-2"><%= product.description %></p>
+
+  <div class="mt-5 grid grid-cols-3 gap-x-4 gap-y-2 font-mono text-[0.7rem] uppercase tracking-wider text-ink-4 border-t border-rule pt-4">
+    <div><span class="block text-ink-5 text-[0.6rem] mb-0.5">Size</span><span class="text-ink-2"><%= product.size %></span></div>
+    <div><span class="block text-ink-5 text-[0.6rem] mb-0.5">Purity</span><span class="text-ink-2"><%= product.purity %></span></div>
+    <div><span class="block text-ink-5 text-[0.6rem] mb-0.5">T½</span><span class="text-ink-2 normal-case tracking-normal"><%= product.halfLife || '—' %></span></div>
+  </div>
+
+  <div class="card-foot">
+    <div>
+      <% if (product.compareAtPrice && product.compareAtPrice > product.price) { %>
+        <span class="price-was">$<%= product.compareAtPrice.toFixed(2) %></span>
+      <% } %>
+      <span class="price">$<%= product.price.toFixed(2) %></span>
+    </div>
+    <button type="button" class="card-cta btn btn-secondary text-[0.72rem] py-2.5 px-3.5 js-add-to-cart" aria-label="Add <%= product.name %> to cart">
+      <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add
+    </button>
+  </div>
+</article>

@@ -1,0 +1,126 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-14 sm:pt-20 pb-12 sm:pb-16 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2">
+        <% if (typeof activeCategory !== 'undefined' && activeCategory) { %>
+          <span class="kicker kicker-rule" style="color: <%= activeCategory.accent %>;">§ <%= activeCategory.short %></span>
+        <% } else { %>
+          <span class="kicker kicker-rule">§ Catalog</span>
+        <% } %>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h1 class="display-lg text-balance">
+          <% if (typeof activeCategory !== 'undefined' && activeCategory) { %>
+            <%= activeCategory.name %>
+          <% } else { %>
+            <span class="font-display-italic">Every</span> compound, indexed.
+          <% } %>
+        </h1>
+        <p class="mt-6 lede">
+          <% if (typeof activeCategory !== 'undefined' && activeCategory) { %>
+            <%= activeCategory.blurb %>
+          <% } else { %>
+            <%= catalog.products.length %> research compounds across <%= catalog.categories.length %> mechanistic classes. Filter by class, format, or evidence tier.
+          <% } %>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-editorial mx-auto px-5 sm:px-8 py-10 sm:py-12">
+    <form id="filter-form" method="get" action="/shop" class="grid grid-cols-12 gap-x-6 lg:gap-x-10 gap-y-8">
+
+      <aside class="col-span-12 lg:col-span-3">
+        <div class="lg:sticky lg:top-28 space-y-8">
+          <div>
+            <label class="kicker block mb-3">Search</label>
+            <input type="search" name="q" value="<%= filters.q %>" placeholder="Compound, mechanism…" class="input" />
+          </div>
+
+          <div>
+            <p class="kicker mb-4">Class</p>
+            <div class="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+              <label class="flex items-center justify-between gap-2 cursor-pointer text-[0.9rem] py-1.5 group">
+                <span class="flex items-center gap-2.5"><input type="radio" name="category" value="" <%= !filters.category ? 'checked' : '' %> class="text-ink focus:ring-ink" /><span>All classes</span></span>
+                <span class="font-mono text-[0.7rem] text-ink-5"><%= catalog.products.length %></span>
+              </label>
+              <% catalog.categories.forEach((c) => { const count = (catalog.byCategory.get(c.id) || []).length; %>
+                <label class="flex items-center justify-between gap-2 cursor-pointer text-[0.9rem] py-1.5 group">
+                  <span class="flex items-center gap-2.5"><input type="radio" name="category" value="<%= c.id %>" <%= filters.category === c.id ? 'checked' : '' %> class="text-ink focus:ring-ink" /><span><%= c.short %></span></span>
+                  <span class="font-mono text-[0.7rem] text-ink-5"><%= count %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div>
+            <p class="kicker mb-4">Evidence tier</p>
+            <div class="space-y-1.5">
+              <% ['', 'FDA-approved', 'Phase 3', 'Phase 2', 'Preclinical'].forEach((e) => { %>
+                <label class="flex items-center gap-2.5 cursor-pointer text-[0.9rem] py-1.5">
+                  <input type="radio" name="evidence" value="<%= e %>" <%= filters.evidence === e ? 'checked' : '' %> class="text-ink focus:ring-ink" />
+                  <span><%= e || 'All tiers' %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div>
+            <p class="kicker mb-4">Format</p>
+            <div class="space-y-1.5">
+              <% ['', 'Lyophilized vial', 'Capsule', 'Topical Cream', 'Topical Solution', 'Nasal Spray', 'Oral Tablet'].forEach((f) => { %>
+                <label class="flex items-center gap-2.5 cursor-pointer text-[0.9rem] py-1.5">
+                  <input type="radio" name="format" value="<%= f %>" <%= filters.format === f ? 'checked' : '' %> class="text-ink focus:ring-ink" />
+                  <span><%= f || 'All formats' %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-2 rule-t">
+            <button type="submit" class="btn btn-primary text-[0.78rem] flex-1">Apply</button>
+            <a href="/shop" class="btn btn-ghost text-[0.78rem]">Reset</a>
+          </div>
+        </div>
+      </aside>
+
+      <div class="col-span-12 lg:col-span-9">
+        <div class="flex items-center justify-between gap-3 mb-6 pb-4 rule-b flex-wrap">
+          <p class="kicker"><span class="text-ink"><%= products.length %></span> result<%= products.length === 1 ? '' : 's' %></p>
+          <div class="flex items-center gap-3">
+            <label for="sort" class="kicker">Sort</label>
+            <select name="sort" id="sort" class="input py-1.5 text-[0.85rem] w-auto" onchange="document.getElementById('filter-form').submit()">
+              <option value="featured" <%= filters.sort === 'featured' ? 'selected' : '' %>>Featured</option>
+              <option value="best" <%= filters.sort === 'best' ? 'selected' : '' %>>Best sellers</option>
+              <option value="newest" <%= filters.sort === 'newest' ? 'selected' : '' %>>Newest</option>
+              <option value="price-asc" <%= filters.sort === 'price-asc' ? 'selected' : '' %>>Price · low to high</option>
+              <option value="price-desc" <%= filters.sort === 'price-desc' ? 'selected' : '' %>>Price · high to low</option>
+              <option value="a-z" <%= filters.sort === 'a-z' ? 'selected' : '' %>>A → Z</option>
+              <option value="z-a" <%= filters.sort === 'z-a' ? 'selected' : '' %>>Z → A</option>
+            </select>
+          </div>
+        </div>
+
+        <% if (products.length === 0) { %>
+          <div class="border border-rule p-16 text-center">
+            <p class="display-md">No matches.</p>
+            <p class="mt-3 text-ink-3">Try broadening your filters or <a href="/shop" class="link-underline">reset all</a>.</p>
+          </div>
+        <% } else { %>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-2">
+            <% products.forEach((product) => { %>
+              <%- include('partials/product-card', { product, catalog }) %>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    </form>
+  </section>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

@@ -1,0 +1,19 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="max-w-editorial mx-auto px-5 sm:px-8 py-24 sm:py-32 grid grid-cols-12 gap-x-6 gap-y-8">
+  <div class="col-span-12 lg:col-span-2">
+    <span class="kicker kicker-rule text-rose">§ <%= code %></span>
+  </div>
+  <div class="col-span-12 lg:col-span-10">
+    <h1 class="display-xl text-balance"><%= title %><span class="font-display-italic text-ink-3">.</span></h1>
+    <p class="mt-8 lede"><%= message %></p>
+    <div class="mt-10 flex gap-3 flex-wrap">
+      <a href="/" class="btn btn-primary">Back to home →</a>
+      <a href="/shop" class="btn btn-secondary">Open the catalog</a>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

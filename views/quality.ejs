@@ -1,0 +1,119 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Quality</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h1 class="display-xl text-balance">Lab-grade rigor, <span class="font-display-italic">every batch.</span></h1>
+        <p class="mt-8 lede max-w-prose">Every peptide is synthesised in cGMP-audited facilities and verified by HPLC + LC-MS before release. A full Certificate of Analysis ships with every order so you can validate before bench-work begins.</p>
+        <div class="mt-10 flex gap-3">
+          <a href="/about" class="btn btn-secondary">Meet the Ljubljana lab →</a>
+          <a href="/blog/reading-a-coa" class="btn btn-ghost">Read a sample COA →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-12">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Method</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+        <article class="rule-t pt-6">
+          <span class="kicker text-cobalt mb-3 inline-block">01 · Identity</span>
+          <h3 class="display-sm">HPLC + LC-MS</h3>
+          <p class="mt-3 text-[0.95rem] text-ink-3 leading-relaxed">Reverse-phase HPLC quantifies purity to ≥98% on every release lot. LC-MS confirms molecular identity to within 0.1 Da.</p>
+        </article>
+        <article class="rule-t pt-6">
+          <span class="kicker text-emerald mb-3 inline-block">02 · Safety</span>
+          <h3 class="display-sm">Sterility &amp; endotoxin</h3>
+          <p class="mt-3 text-[0.95rem] text-ink-3 leading-relaxed">USP &lt;71&gt; sterility and LAL endotoxin testing run prior to release. Documented results on every COA.</p>
+        </article>
+        <article class="rule-t pt-6">
+          <span class="kicker text-amber mb-3 inline-block">03 · Origin</span>
+          <h3 class="display-sm">cGMP synthesis</h3>
+          <p class="mt-3 text-[0.95rem] text-ink-3 leading-relaxed">Solid-phase synthesis in audited cGMP facilities with full reagent traceability and batch records preserved.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-paper-2 rule-y">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Chain</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="display-lg">From synthesis<br><span class="font-display-italic">to shipment.</span></h2>
+
+        <ol class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10">
+          <% [
+            ['Solid-phase synthesis', 'Fmoc/Boc chemistry under cGMP audit. Reagents traceable to lot of origin.'],
+            ['Purification', 'Preparative HPLC isolates the target peptide; counter-ion exchange when relevant.'],
+            ['HPLC purity verification', 'Analytical reverse-phase HPLC at 220 nm and 280 nm; ≥ 98 % by area.'],
+            ['LC-MS identity', 'High-resolution mass spectrometry confirms molecular weight to 0.1 Da.'],
+            ['Sterility (USP <71>)', 'Membrane-filtration sterility testing per USP <71> protocols.'],
+            ['Endotoxin (LAL)', 'Limulus amebocyte lysate assay; specifications under 0.5 EU/mg.'],
+            ['Release & COA', 'Quality release with batch-specific Certificate of Analysis.'],
+            ['Cold-chain dispatch', 'Insulated packaging with phase-change inserts for transit-temperature stability.'],
+          ].forEach((step, i) => { %>
+            <li class="grid grid-cols-[56px_1fr] gap-4 py-5 rule-t">
+              <span class="font-mono text-[0.78rem] text-ink-5 pt-1"><%= String(i + 1).padStart(2, '0') %></span>
+              <div>
+                <p class="font-display text-[1.15rem] font-medium leading-snug"><%- step[0] %></p>
+                <p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed"><%- step[1] %></p>
+              </div>
+            </li>
+          <% }) %>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Reading</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/blog/reading-a-coa" class="block p-6 border border-rule hover:border-ink transition-colors">
+          <span class="kicker text-cobalt">Quality · 5 min</span>
+          <h3 class="font-display text-[1.2rem] font-medium mt-3 leading-snug">How to read a peptide Certificate of Analysis</h3>
+          <p class="text-[0.9rem] text-ink-3 mt-3 leading-relaxed line-clamp-2">What each section of a COA actually tells you about the lot in your hand.</p>
+        </a>
+        <a href="/blog/hplc-purity-grades" class="block p-6 border border-rule hover:border-ink transition-colors">
+          <span class="kicker text-cobalt">Quality · 6 min</span>
+          <h3 class="font-display text-[1.2rem] font-medium mt-3 leading-snug">HPLC purity grades: ≥98%, ≥99%, what each means</h3>
+          <p class="text-[0.9rem] text-ink-3 mt-3 leading-relaxed line-clamp-2">The story behind a purity number is more interesting than the headline figure.</p>
+        </a>
+        <a href="/blog/spps-explained" class="block p-6 border border-rule hover:border-ink transition-colors">
+          <span class="kicker text-cobalt">Chemistry · 10 min</span>
+          <h3 class="font-display text-[1.2rem] font-medium mt-3 leading-snug">Solid-phase peptide synthesis explained</h3>
+          <p class="text-[0.9rem] text-ink-3 mt-3 leading-relaxed line-clamp-2">From the resin bead through Fmoc deprotection, coupling, cleavage, and HPLC.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-7">
+        <span class="kicker kicker-rule mb-4 inline-flex">§ Bench</span>
+        <h2 class="display-lg mt-3">Built for the bench, <span class="font-display-italic">documented for review.</span></h2>
+        <p class="mt-7 lede max-w-prose">If your protocol requires source reagents, batch records, or method-validation memos, our team can provide them on request.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-5 flex lg:items-end lg:justify-end">
+        <a href="/contact" class="btn btn-primary">Talk to research team →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

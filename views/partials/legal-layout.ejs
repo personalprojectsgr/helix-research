@@ -1,0 +1,33 @@
+<%- include('head') %>
+<%- include('header') %>
+
+<main class="max-w-editorial mx-auto px-5 sm:px-8 py-14 sm:py-20 grid grid-cols-12 gap-x-6 gap-y-10">
+  <div class="col-span-12 lg:col-span-2">
+    <span class="kicker kicker-rule">§ Legal</span>
+  </div>
+
+  <article class="col-span-12 lg:col-span-8">
+    <h1 class="display-xl text-balance"><%= legalTitle %><span class="font-display-italic text-ink-3">.</span></h1>
+    <p class="mt-6 kicker text-ink-4">Last updated · April 2026</p>
+
+    <div class="mt-12 max-w-prose text-[1.0rem] text-ink-2 leading-[1.75] space-y-1">
+      <%- legalBody %>
+      <div class="mt-12 p-6 border border-rule bg-paper-2 text-[0.92rem] text-ink-3 leading-relaxed">
+        <span class="kicker text-ink mr-2">Demo notice</span>
+        This is sample legal language for a demonstration store. It is not legal advice. Consult qualified counsel before deploying any storefront in your jurisdiction.
+      </div>
+    </div>
+
+    <nav class="mt-12 pt-6 rule-t flex flex-wrap gap-x-4 gap-y-2 text-[0.85rem]">
+      <a href="/legal/terms" class="link-underline">Terms</a>
+      <a href="/legal/privacy" class="link-underline">Privacy</a>
+      <a href="/legal/refund" class="link-underline">Refund</a>
+      <a href="/legal/shipping" class="link-underline">Shipping</a>
+      <a href="/legal/disclaimer" class="link-underline">Disclaimer</a>
+    </nav>
+  </article>
+</main>
+
+<%- include('cart-drawer') %>
+<%- include('footer') %>
+<%- include('scripts') %>

@@ -1,0 +1,186 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <nav class="max-w-editorial mx-auto px-5 sm:px-8 pt-8 pb-2 kicker text-ink-4 flex items-center gap-2 flex-wrap">
+    <a href="/" class="hover:text-ink">Home</a><span class="opacity-40">/</span>
+    <a href="/shop" class="hover:text-ink">Catalog</a><span class="opacity-40">/</span>
+    <a href="/category/<%= category.id %>" class="hover:text-ink"><%= category.short %></a><span class="opacity-40">/</span>
+    <span class="text-ink"><%= product.name %></span>
+  </nav>
+
+  <section class="max-w-editorial mx-auto px-5 sm:px-8 pt-8 pb-14 sm:pt-12 sm:pb-20 grid grid-cols-12 gap-x-6 gap-y-10">
+    <div class="col-span-12 lg:col-span-2">
+      <span class="kicker" style="color: <%= category.accent %>;">§ <%= category.short %></span>
+      <span class="kicker text-ink-4 block mt-2"><%= product.evidenceTier %></span>
+    </div>
+
+    <div class="col-span-12 lg:col-span-7">
+      <h1 class="display-lg text-balance"><%= product.name %></h1>
+      <% if (product.fullName) { %>
+        <p class="font-display-italic text-[1.4rem] sm:text-[1.6rem] text-ink-3 mt-3 leading-tight"><%= product.fullName %></p>
+      <% } %>
+      <p class="mt-8 lede text-ink-2"><%= product.description %></p>
+    </div>
+
+    <div class="col-span-12 lg:col-span-3 lg:pt-2">
+      <div class="border border-ink p-5 bg-paper">
+        <div class="flex items-baseline justify-between rule-b pb-4">
+          <div>
+            <% if (product.compareAtPrice && product.compareAtPrice > product.price) { %>
+              <span class="block font-mono text-[0.78rem] text-ink-5 line-through">$<%= product.compareAtPrice.toFixed(2) %></span>
+            <% } %>
+            <span class="font-display text-[2.4rem] font-medium leading-none">$<%= product.price.toFixed(2) %></span>
+          </div>
+          <span class="kicker"><%= product.size %></span>
+        </div>
+
+        <p class="mt-4 kicker text-emerald flex items-center gap-2"><span class="dot dot-emerald"></span> In stock · ships 1–2 days</p>
+
+        <div class="mt-5 flex items-stretch gap-2">
+          <div class="flex items-center border border-rule-2 shrink-0">
+            <button type="button" class="w-9 h-11 grid place-items-center hover:bg-paper-2" data-qty="-1" aria-label="Decrease"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+            <input type="number" id="qty-input" value="1" min="1" max="10" class="w-10 h-11 text-center font-mono text-[0.85rem] bg-transparent border-0 focus:ring-0" />
+            <button type="button" class="w-9 h-11 grid place-items-center hover:bg-paper-2" data-qty="+1" aria-label="Increase"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button>
+          </div>
+          <button type="button" id="pdp-add-to-cart" class="btn btn-primary flex-1 h-11"
+            data-product-id="<%= product.id %>"
+            data-product-name="<%= product.name %>"
+            data-product-price="<%= product.price %>"
+            data-product-category="<%= product.category %>">
+            Add to cart →
+          </button>
+        </div>
+
+        <ul class="mt-5 grid grid-cols-2 gap-y-2 text-[0.72rem] font-mono uppercase tracking-wider text-ink-4">
+          <li class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3 text-emerald"></i>COA</li>
+          <li class="flex items-center gap-2"><i data-lucide="microscope" class="w-3 h-3 text-cobalt"></i>HPLC</li>
+          <li class="flex items-center gap-2"><i data-lucide="thermometer-snowflake" class="w-3 h-3 text-cobalt"></i>Cold-chain</li>
+          <li class="flex items-center gap-2"><i data-lucide="lock" class="w-3 h-3 text-ink-3"></i>Discreet</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="rule-y bg-paper-2">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 py-12 sm:py-16 grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Specs</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <table class="spec-table">
+          <tr><th>Compound</th><td><%= product.name %></td></tr>
+          <% if (product.fullName) { %><tr><th>Synonym / class</th><td><%= product.fullName %></td></tr><% } %>
+          <% if (product.abbreviation) { %><tr><th>Abbreviation</th><td><%= product.abbreviation %></td></tr><% } %>
+          <tr><th>Format</th><td><%= product.format %></td></tr>
+          <tr><th>Quantity per vial</th><td><%= product.size %></td></tr>
+          <tr><th>HPLC purity</th><td class="text-emerald">≥ <%= (product.purity || '98%').replace('≥','').trim() %></td></tr>
+          <% if (product.halfLife) { %><tr><th>Apparent half-life</th><td><%= product.halfLife %></td></tr><% } %>
+          <% if (product.dosageRange) { %><tr><th>Research dosage range</th><td><%= product.dosageRange %></td></tr><% } %>
+          <tr><th>Evidence tier</th><td><%= product.evidenceTier %></td></tr>
+          <tr><th>Storage</th><td>−20 °C, desiccated, protected from light</td></tr>
+          <tr><th>Reconstitution</th><td>Bacteriostatic water, refrigerate post-reconstitution</td></tr>
+          <tr><th>Documentation</th><td>Batch-specific Certificate of Analysis included</td></tr>
+        </table>
+
+        <a href="#" class="mt-8 btn btn-secondary" onclick="event.preventDefault(); alert('Sample COA download — demo build');">
+          <i data-lucide="file-down" class="w-4 h-4"></i> Download sample COA (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-editorial mx-auto px-5 sm:px-8 py-16 sm:py-20 grid grid-cols-12 gap-x-6 gap-y-12">
+    <div class="col-span-12 lg:col-span-2">
+      <span class="kicker kicker-rule">§ Notes</span>
+    </div>
+    <div class="col-span-12 lg:col-span-7 space-y-12">
+      <div>
+        <h2 class="display-md mb-5">About <span class="font-display-italic"><%= product.name %></span></h2>
+        <p class="text-[1.05rem] text-ink-2 leading-[1.7] max-w-prose"><%= product.longDescription %></p>
+      </div>
+
+      <div class="rule-t pt-12">
+        <h2 class="display-md mb-5">Mechanism</h2>
+        <p class="text-[1.05rem] text-ink-2 leading-[1.7] max-w-prose"><%= product.mechanism %></p>
+      </div>
+
+      <div class="rule-t pt-12">
+        <h2 class="display-md mb-6">Research areas</h2>
+        <ul class="grid grid-cols-1">
+          <% (product.researchAreas || []).forEach((area, i) => { %>
+            <li class="grid grid-cols-[40px_1fr] gap-4 py-4 rule-t">
+              <span class="font-mono text-[0.78rem] text-ink-5 pt-1"><%= String(i + 1).padStart(2, '0') %></span>
+              <span class="text-[1.0rem] text-ink-2"><%= area %></span>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="rule-t pt-12">
+        <h2 class="display-md mb-6">Frequently asked</h2>
+        <div>
+          <details class="rule-t group">
+            <summary class="py-5 font-display text-[1.15rem] font-medium cursor-pointer flex items-center justify-between gap-3 list-none">Is this product for human use?<i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform"></i></summary>
+            <p class="pb-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-prose">No. All products on this site are sold strictly for in-vitro and laboratory research purposes. They are not intended for human or animal consumption, diagnosis, treatment, prevention, or cure of any disease.</p>
+          </details>
+          <details class="rule-t group">
+            <summary class="py-5 font-display text-[1.15rem] font-medium cursor-pointer flex items-center justify-between gap-3 list-none">How is purity verified?<i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform"></i></summary>
+            <p class="pb-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-prose">Every batch is verified by reverse-phase HPLC for purity (≥98%) and confirmed by LC-MS for molecular identity. Sterility (USP &lt;71&gt;) and endotoxin (LAL) screening are run prior to release. The Certificate of Analysis is shipped with every order.</p>
+          </details>
+          <details class="rule-t group">
+            <summary class="py-5 font-display text-[1.15rem] font-medium cursor-pointer flex items-center justify-between gap-3 list-none">How should this be stored?<i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform"></i></summary>
+            <p class="pb-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-prose">Lyophilised peptides are most stable when stored at −20 °C in a sealed container, protected from light and moisture. After reconstitution with bacteriostatic water, store at 2–8 °C and use within 30 days for research integrity.</p>
+          </details>
+          <details class="rule-y group">
+            <summary class="py-5 font-display text-[1.15rem] font-medium cursor-pointer flex items-center justify-between gap-3 list-none">Does it ship internationally?<i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform"></i></summary>
+            <p class="pb-6 text-[0.95rem] text-ink-3 leading-relaxed max-w-prose">Yes. We ship globally via cold-chain insulated packaging. Orders over $200 ship free domestically and at a discounted rate internationally. Delivery times vary by destination.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <aside class="col-span-12 lg:col-span-3 lg:pt-2">
+      <div class="border border-rule p-5 bg-paper sticky top-28">
+        <p class="kicker mb-4">Tags</p>
+        <div class="flex flex-wrap gap-1.5">
+          <% (product.tags || []).forEach((t) => { %>
+            <span class="chip"><%= t %></span>
+          <% }) %>
+        </div>
+        <div class="mt-6 rule-t pt-5">
+          <p class="kicker mb-3">Class</p>
+          <a href="/category/<%= category.id %>" class="font-display text-[1.1rem] font-medium link-underline border-b-0 hover:border-b"><%= category.name %></a>
+          <p class="text-[0.85rem] text-ink-3 mt-2 leading-relaxed"><%= category.blurb %></p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <% if (related && related.length) { %>
+  <section class="rule-t">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 py-16 sm:py-20">
+      <header class="grid grid-cols-12 gap-6 mb-10">
+        <div class="col-span-12 lg:col-span-2">
+          <span class="kicker kicker-rule">§ See also</span>
+        </div>
+        <div class="col-span-12 lg:col-span-7">
+          <h2 class="display-md">Related <span class="font-display-italic">compounds.</span></h2>
+        </div>
+        <div class="col-span-12 lg:col-span-3 flex lg:items-end lg:justify-end">
+          <a href="/category/<%= category.id %>" class="link-underline text-[0.9rem]">All <%= category.short %> →</a>
+        </div>
+      </header>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2">
+        <% related.forEach((p) => { %>
+          <%- include('partials/product-card', { product: p, catalog }) %>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

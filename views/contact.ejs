@@ -1,0 +1,69 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20 grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Contact</span>
+      </div>
+      <div class="col-span-12 lg:col-span-7">
+        <h1 class="display-xl text-balance">Talk to <span class="font-display-italic">our team.</span></h1>
+        <p class="mt-8 lede">For COA requests, batch documentation, or sourcing questions — our team responds within 1 business day.</p>
+
+        <dl class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-8">
+          <div class="rule-t pt-5">
+            <dt class="kicker mb-2">Email</dt>
+            <dd><a href="mailto:research@helix.example" class="font-display text-[1.05rem] font-medium link-underline border-b-0 hover:border-b">research@helix.example</a></dd>
+          </div>
+          <div class="rule-t pt-5">
+            <dt class="kicker mb-2">Phone</dt>
+            <dd class="font-mono text-[0.95rem]">+386 1 620 6700</dd>
+            <dd class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-4 mt-1">Mon–Fri · 09:00–18:00 CET</dd>
+          </div>
+          <div class="rule-t pt-5">
+            <dt class="kicker mb-2">Fulfilment hub</dt>
+            <dd class="font-display text-[1.05rem] font-medium">Ljubljana, Slovenia</dd>
+            <dd class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-4 mt-1">EU · cGMP partner facility</dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside class="col-span-12 lg:col-span-3">
+        <form class="border border-ink p-6 bg-paper" onsubmit="event.preventDefault(); window.HELIX_UI.toast('Demo \u2014 message would be sent here', 'success'); this.reset();">
+          <p class="kicker mb-5">Send a message</p>
+          <div class="space-y-5">
+            <label class="block">
+              <span class="label">Name</span>
+              <input type="text" required class="input" />
+            </label>
+            <label class="block">
+              <span class="label">Email</span>
+              <input type="email" required class="input" placeholder="researcher@institution.edu" />
+            </label>
+            <label class="block">
+              <span class="label">Topic</span>
+              <select class="input">
+                <option>COA / batch documentation</option>
+                <option>Custom synthesis quote</option>
+                <option>Order or shipping</option>
+                <option>Press / partnerships</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="label">Message</span>
+              <textarea rows="4" required class="input border-b border-rule-2 resize-none" placeholder="Tell us about your research."></textarea>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary w-full mt-6">Send message →</button>
+          <p class="text-[0.7rem] font-mono uppercase tracking-wider text-ink-4 mt-4 leading-relaxed text-center">Replies within 1 business day · No third-party sharing</p>
+        </form>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

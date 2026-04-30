@@ -1,0 +1,33 @@
+<%- include('../partials/legal-layout', {
+  legalTitle: 'Privacy Policy',
+  legalBody: `
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">1. Information we collect</h2>
+    <p>We collect information you provide when placing an order, contacting our team, or browsing the site. This includes name, email, shipping address, phone (optional), and order details.</p>
+    <p>We also collect technical information automatically: IP address, user-agent, referring URL, and standard cookies used for cart persistence and ad-platform attribution (e.g., the Meta <code>_fbp</code> and <code>_fbc</code> cookies).</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">2. How we use information</h2>
+    <ul class="list-disc pl-5 space-y-2">
+      <li>To process and fulfill your orders and send order-related communications.</li>
+      <li>To provide customer and research support.</li>
+      <li>To measure ad-campaign attribution via Meta Pixel and Conversions API (server-side, with hashed identifiers).</li>
+      <li>To detect and prevent fraud or abuse.</li>
+      <li>To comply with legal obligations.</li>
+    </ul>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">3. Cookies &amp; tracking</h2>
+    <p>We use first-party and third-party cookies for shopping cart persistence and analytics/ad attribution. The Meta Pixel sends events to Meta when enabled \u2014 these include hashed identifiers (SHA-256 of email, name where provided) and unhashed IP and user-agent.</p>
+    <p>You can disable Meta tracking by blocking the relevant cookies in your browser or using a tracking-prevention extension. Cart persistence will still function.</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">4. Data sharing</h2>
+    <p>We share information with: payment processors (when real payments are enabled), shipping carriers (for fulfillment), and Meta Platforms (for ad attribution \u2014 hashed where applicable).</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">5. Your rights</h2>
+    <p>Depending on your jurisdiction (e.g., GDPR, CCPA), you may have rights to access, correct, delete, or port your data. Contact us to exercise these rights.</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">6. Data retention</h2>
+    <p>We retain order data for as long as required by law (typically 7 years for tax purposes). Marketing identifiers and cookies expire per their individual policies (generally 90 days for Meta cookies).</p>
+
+    <h2 class="font-display text-2xl font-semibold mt-8 mb-3">7. Contact</h2>
+    <p>Privacy questions: <a href="/contact" class="link-underline">contact our team</a>.</p>
+  `
+}) %>

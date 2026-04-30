@@ -1,0 +1,83 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Journal</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h1 class="display-xl text-balance">The Journal<span class="font-display-italic text-ink-3">.</span></h1>
+        <p class="mt-8 lede max-w-prose">Evidence-based articles on mechanism, dosing literature, manufacturing, and the European research-supply ecosystem. Updated as new clinical data drops.</p>
+        <div class="mt-10 flex flex-wrap gap-2 text-xs">
+          <% const tags = [...new Set(posts.map((p) => p.tag))]; %>
+          <% tags.forEach((t) => { %>
+            <span class="chip"><%= t %></span>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-2">
+      <% const [feature, ...rest] = posts; %>
+
+      <% if (feature) { %>
+        <article class="col-span-12 group rule-t pt-10 pb-12">
+          <a href="/blog/<%= feature.slug %>" class="grid grid-cols-12 gap-x-6 gap-y-6">
+            <div class="col-span-12 lg:col-span-3">
+              <div class="flex items-center gap-3">
+                <span class="kicker text-cobalt"><%= feature.tag %></span>
+                <span class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-4">— <%= feature.read %></span>
+              </div>
+              <p class="font-mono text-[0.78rem] uppercase tracking-wider text-ink-5 mt-3"><%= feature.date %> · Featured</p>
+            </div>
+            <div class="col-span-12 lg:col-span-9">
+              <h2 class="display-lg group-hover:text-cobalt transition-colors text-balance"><%= feature.title %></h2>
+              <p class="text-[1.05rem] text-ink-3 mt-5 leading-relaxed line-clamp-3 max-w-prose"><%= feature.excerpt %></p>
+              <span class="mt-6 inline-block link-underline border-b text-ink font-mono text-[0.75rem] uppercase tracking-wider">Read article →</span>
+            </div>
+          </a>
+        </article>
+      <% } %>
+
+      <% rest.forEach((post, i) => { %>
+        <article class="col-span-12 lg:col-span-6 group">
+          <a href="/blog/<%= post.slug %>" class="block rule-t py-8 sm:py-10 transition-colors hover:bg-paper-2 px-2 -mx-2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="kicker text-cobalt"><%= post.tag %></span>
+              <span class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-4">— <%= post.read %></span>
+              <span class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-5 ml-auto"><%= String(i + 2).padStart(2, '0') %></span>
+            </div>
+            <h2 class="display-sm group-hover:text-cobalt transition-colors text-balance"><%= post.title %></h2>
+            <p class="text-[0.95rem] text-ink-3 mt-4 leading-relaxed line-clamp-2"><%= post.excerpt %></p>
+            <div class="mt-5 flex items-center justify-between font-mono text-[0.75rem] uppercase tracking-wider text-ink-4">
+              <span><%= post.date %></span>
+              <span class="link-underline border-b-0 group-hover:border-b text-ink">Read →</span>
+            </div>
+          </a>
+        </article>
+      <% }) %>
+      <div class="col-span-12 rule-t"></div>
+    </div>
+  </section>
+
+  <section class="section bg-paper-2 rule-y">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-7">
+        <span class="kicker kicker-rule mb-4 inline-flex">§ Editorial</span>
+        <h2 class="display-lg mt-3">Written by <span class="font-display-italic">researchers,</span> for researchers.</h2>
+        <p class="mt-7 lede max-w-prose">Every article is reviewed by our chemistry and QC teams in Ljubljana. We cite primary literature, flag where evidence is thin, and update articles when new data lands.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-5 flex lg:items-end lg:justify-end">
+        <a href="/about" class="btn btn-primary">Meet the lab →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

@@ -1,0 +1,198 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main>
+
+  <section class="rule-b">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 pt-14 sm:pt-20 pb-16 sm:pb-24 grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ Logistics</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h1 class="display-xl text-balance">Shipped from the EU<span class="font-display-italic text-ink-3">,</span><br>tracked end-to-end<span class="font-display-italic text-ink-3">,</span> plain unmarked.</h1>
+        <p class="mt-8 lede">Our fulfilment hub sits inside the European Union — most EU destinations land in 2–5 working days, peripheral and Nordic destinations in 4–7. Every parcel ships in plain neutral packaging with a generic fulfilment-ID return label. Tracked with a single carrier handover, cold-chain insulated for transit stability.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip max-w-editorial mx-auto px-5 sm:px-8 border-b border-rule">
+    <div><i data-lucide="map-pin"></i> EU fulfilment hub</div>
+    <div><i data-lucide="package-2"></i> Plain unmarked outer</div>
+    <div><i data-lucide="snowflake"></i> Cold-chain insulated</div>
+    <div><i data-lucide="navigation"></i> Tracked end-to-end</div>
+  </section>
+
+  <section class="section">
+    <div class="max-w-editorial mx-auto px-5 sm:px-8 grid grid-cols-12 gap-x-6 gap-y-12">
+
+      <div class="col-span-12 lg:col-span-2">
+        <span class="kicker kicker-rule">§ 01</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <h2 class="display-lg">Delivery <span class="font-display-italic">windows</span> by region.</h2>
+        <p class="mt-5 lede max-w-prose">Quoted from carrier handover at our EU hub. Excludes weekends, public holidays in your destination country, and customs clearance windows for non-EU shipments.</p>
+
+        <div class="mt-12 max-w-3xl">
+          <table class="zone-table">
+            <% Object.values(shippingZones).forEach((zone) => {
+                 const codes = shippingCountries.filter((c) => c.zoneId === zone.id);
+                 const opts = shippingOptions[zone.id] || [];
+            %>
+              <tr>
+                <th><%= zone.label %><br><span class="text-ink-3 mt-1 inline-block normal-case tracking-normal text-[0.78rem] font-sans"><%= zone.eta %></span></th>
+                <td>
+                  <span><%= zone.summary %></span>
+                  <% if (codes.length) { %>
+                    <span class="countries"><%= codes.map(c => c.name).join(' · ') %></span>
+                  <% } %>
+                  <% if (opts.length) { %>
+                    <span class="block mt-3 font-mono text-[0.75rem] text-ink-4">
+                      <% opts.forEach((o, i) => { %><%= i ? ' · ' : '' %><%= o.label %> $<%= o.price.toFixed(2) %><% }) %>
+                    </span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </table>
+          <p class="mt-6 text-[0.85rem] text-ink-3">Free EU standard shipping on orders over <strong class="font-mono">$<%= freeShippingThreshold %></strong>.</p>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-2 lg:mt-16">
+        <span class="kicker kicker-rule">§ 02</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 lg:mt-16">
+        <h2 class="display-lg">Plain. <span class="font-display-italic">Unmarked.</span> Discreet by default.</h2>
+        <p class="mt-5 lede max-w-prose">Every order ships in a neutral box with no exterior reference to the contents, brand, or compound names. The return address uses a generic fulfilment identifier. Inside, vials are individually wrapped, shock-protected, and labelled with batch + lot for COA verification.</p>
+
+        <div class="value-prop-grid mt-12">
+          <article>
+            <span class="kicker text-cobalt">01 · Outer</span>
+            <h3>Neutral packaging</h3>
+            <p class="text-[0.9rem] text-ink-3 leading-relaxed">Plain corrugated box, no logos, no colour cues, no chemical names on labels. Looks like any other small parcel.</p>
+          </article>
+          <article>
+            <span class="kicker text-cobalt">02 · Return label</span>
+            <h3>Generic fulfilment ID</h3>
+            <p class="text-[0.9rem] text-ink-3 leading-relaxed">Return address is a fulfilment partner identifier — not a brand or company name. Carriers see only routing data.</p>
+          </article>
+          <article>
+            <span class="kicker text-cobalt">03 · Inner</span>
+            <h3>Insulated EPS mailer</h3>
+            <p class="text-[0.9rem] text-ink-3 leading-relaxed">Phase-change cooling inserts hold transit temperature for 96 hours. Vials individually wrapped in shock foam.</p>
+          </article>
+          <article>
+            <span class="kicker text-cobalt">04 · Identification</span>
+            <h3>Batch + lot only</h3>
+            <p class="text-[0.9rem] text-ink-3 leading-relaxed">Vial labels carry compound, batch, lot — not retail branding. COA verification is done by lot number on the order page.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-2 lg:mt-16">
+        <span class="kicker kicker-rule">§ 03</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 lg:mt-16">
+        <h2 class="display-lg">Process <span class="font-display-italic">window.</span></h2>
+        <ol class="mt-10 space-y-0 max-w-3xl">
+          <li class="grid grid-cols-[110px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-3 pt-1">T+0:00</span>
+            <div><h4 class="font-display text-[1.15rem] font-medium">Order placed</h4><p class="text-[0.88rem] text-ink-3 mt-1">Crypto invoice generated. 30-minute window to settle on-chain.</p></div>
+          </li>
+          <li class="grid grid-cols-[110px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-3 pt-1">T+~10m</span>
+            <div><h4 class="font-display text-[1.15rem] font-medium">Confirmation</h4><p class="text-[0.88rem] text-ink-3 mt-1">On-chain confirmation triggers fulfilment queue. Order moves to picking.</p></div>
+          </li>
+          <li class="grid grid-cols-[110px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-3 pt-1">Same day*</span>
+            <div><h4 class="font-display text-[1.15rem] font-medium">Dispatch</h4><p class="text-[0.88rem] text-ink-3 mt-1">Orders confirmed before 14:00 CET on a working day ship the same business day. Tracking emailed at carrier handover.</p></div>
+          </li>
+          <li class="grid grid-cols-[110px_1fr] gap-5 py-5 rule-y">
+            <span class="font-mono text-[0.78rem] text-ink-3 pt-1">T+2…14d</span>
+            <div><h4 class="font-display text-[1.15rem] font-medium">Delivery</h4><p class="text-[0.88rem] text-ink-3 mt-1">EU 2–7 business days · UK/CH/NO 4–7 · International 7–14. Carrier-tracked end-to-end.</p></div>
+          </li>
+        </ol>
+        <p class="mt-5 text-[0.78rem] text-ink-4">*Same-day dispatch applies Mon–Fri excluding EU bank holidays. Weekend/holiday orders dispatch the next working day.</p>
+      </div>
+
+      <div class="col-span-12 lg:col-span-2 lg:mt-16">
+        <span class="kicker kicker-rule">§ 04</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 lg:mt-16">
+        <h2 class="display-lg">Customs <span class="font-display-italic">&amp; compliance.</span></h2>
+        <p class="mt-5 lede max-w-prose">Intra-EU shipments cross no customs border. Cross-border shipments are declared accurately under the Union Customs Code as research-grade laboratory chemicals, classified to the appropriate HS subheading for the molecule. Accurate declaration is the only declaration we use — it is also the declaration that clears fastest.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 mt-10">
+          <div class="rule-t pt-5">
+            <span class="kicker text-cobalt mb-2 inline-block">EU intra-community</span>
+            <p class="text-[0.95rem] text-ink-2 leading-relaxed">No customs border, no import duty, no documentation overhead. VAT handled at point of sale. Most destinations land in 2–3 working days.</p>
+          </div>
+          <div class="rule-t pt-5">
+            <span class="kicker text-cobalt mb-2 inline-block">UK · Switzerland · Norway</span>
+            <p class="text-[0.95rem] text-ink-2 leading-relaxed">Customs declaration completed by Helix at dispatch. Local VAT or import duty (if applicable) settled by the carrier on delivery. Typical clearance window 1–3 days.</p>
+          </div>
+          <div class="rule-t pt-5">
+            <span class="kicker text-cobalt mb-2 inline-block">International</span>
+            <p class="text-[0.95rem] text-ink-2 leading-relaxed">Declared as research-grade laboratory chemicals with batch-level documentation available on request. Carrier handles import processing in destination country. Local import rules vary; recipient is responsible for compliance with national law.</p>
+          </div>
+          <div class="rule-t pt-5">
+            <span class="kicker text-cobalt mb-2 inline-block">Restricted destinations</span>
+            <p class="text-[0.95rem] text-ink-2 leading-relaxed">Some destinations are restricted by carrier policy or local regulation. We notify you at order placement if your destination cannot be served and refund the order before dispatch.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 p-6 border border-rule bg-paper-2 max-w-prose">
+          <p class="kicker mb-3">Why we declare accurately</p>
+          <p class="text-[0.95rem] text-ink-2 leading-relaxed">Mis-declaring a shipment as something it is not is customs fraud — a criminal offence under EU Regulation 952/2013, US 18 USC §542, UK CEMA 1979, and equivalent national statutes. We do not do it. The plain professional outer packaging is for buyer privacy on the doorstep, not for customs evasion. Accurate research-chemical declarations clear routinely; they are the boring, reliable way to ship.</p>
+        </div>
+      </div>
+
+      <div class="col-span-12 lg:col-span-2 lg:mt-16">
+        <span class="kicker kicker-rule">§ 05</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 lg:mt-16">
+        <h2 class="display-lg">What <span class="font-display-italic">arrives</span> on your bench.</h2>
+        <p class="mt-5 lede max-w-prose">When the courier hands over your parcel, here is the order of operations.</p>
+
+        <ol class="mt-10 space-y-0 max-w-3xl">
+          <li class="grid grid-cols-[40px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">01</span>
+            <div><h4 class="font-display text-[1.1rem] font-medium">Plain corrugated outer.</h4><p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">White, unbranded, no chemical references. Generic alphanumeric tracking code on the label. Looks like any other small e-commerce parcel — because that is what it is.</p></div>
+          </li>
+          <li class="grid grid-cols-[40px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">02</span>
+            <div><h4 class="font-display text-[1.1rem] font-medium">EPS-foam cradle inside.</h4><p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">Moulded white expanded-polystyrene cradle holds vials snugly. A single phase-change cooling brick sits in the cradle, still cold for hours after delivery.</p></div>
+          </li>
+          <li class="grid grid-cols-[40px_1fr] gap-5 py-5 rule-t">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">03</span>
+            <div><h4 class="font-display text-[1.1rem] font-medium">Vials with batch + lot label.</h4><p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">Clear glass research vials, white aluminium crimp caps, plain label showing compound, batch, lot, and date. No retail branding, no marketing copy.</p></div>
+          </li>
+          <li class="grid grid-cols-[40px_1fr] gap-5 py-5 rule-y">
+            <span class="font-mono text-[0.78rem] text-ink-5 pt-1">04</span>
+            <div><h4 class="font-display text-[1.1rem] font-medium">Folded COA + handling card.</h4><p class="text-[0.9rem] text-ink-3 mt-2 leading-relaxed">The batch-specific COA folded under the cradle. A single handling card with storage and reconstitution guidance specific to the compound. No marketing inserts.</p></div>
+          </li>
+        </ol>
+        <p class="mt-6 text-[0.85rem] text-ink-3 max-w-prose">Read more about the cold-chain decisions in <a href="/blog/cold-chain-logistics" class="link-underline">our Journal article on cold-chain logistics for lyophilised peptides</a>, and how to read the COA in <a href="/blog/reading-a-coa" class="link-underline">our COA reading guide</a>.</p>
+      </div>
+
+      <div class="col-span-12 lg:col-span-2 lg:mt-16">
+        <span class="kicker kicker-rule">§ 06</span>
+      </div>
+      <div class="col-span-12 lg:col-span-10 lg:mt-16">
+        <h2 class="display-lg">Why we ship <span class="font-display-italic">crypto-only.</span></h2>
+        <p class="mt-5 lede max-w-prose">Cryptocurrency settlement removes a layer of intermediaries. We never store card numbers, never share customer details with a card processor, and never appear on a bank statement under our name. The transaction settles on-chain in minutes, with a 0.5 % network fee — far less than card processing.</p>
+        <p class="mt-5 text-[0.92rem] text-ink-3 leading-relaxed max-w-prose">Plisio is our payment infrastructure provider; they convert your coin to USDT for settlement. We accept BTC, ETH, USDT, USDC, LTC, SOL, XMR, TON, TRX, DOGE and other major coins. Invoices lock the exchange rate at creation and expire in 30 minutes — retry as many times as needed.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/shop" class="btn btn-primary">Open the catalog →</a>
+          <a href="/contact" class="btn btn-secondary">Logistics questions →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>

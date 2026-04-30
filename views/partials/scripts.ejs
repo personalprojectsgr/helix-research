@@ -1,0 +1,17 @@
+<script src="/static/js/ui.js" defer></script>
+<script src="/static/js/tracking.js" defer></script>
+<script src="/static/js/cart.js" defer></script>
+<% if (typeof pageContext !== 'undefined' && pageContext === 'shop' || pageContext === 'category') { %>
+<script src="/static/js/catalog.js" defer></script>
+<% } %>
+<% if (typeof pageContext !== 'undefined' && pageContext === 'product') { %>
+<script src="/static/js/product.js" defer></script>
+<% } %>
+<% if (typeof pageContext !== 'undefined' && pageContext === 'checkout') { %>
+<script src="/static/js/checkout.js" defer></script>
+<% } %>
+<% if (typeof pageContext !== 'undefined' && (pageContext === 'order-success' || pageContext === 'order-cancelled')) { %>
+<script src="/static/js/payment-status.js" defer></script>
+<% } %>
+</body>
+</html>

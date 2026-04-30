@@ -1,0 +1,46 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="max-w-editorial mx-auto px-5 sm:px-8 py-14 sm:py-20 grid grid-cols-12 gap-x-6 gap-y-10">
+  <div class="col-span-12 lg:col-span-2">
+    <a href="/blog" class="kicker text-ink-3 hover:text-ink"><i data-lucide="arrow-left" class="w-3 h-3 inline"></i> Journal</a>
+  </div>
+
+  <article class="col-span-12 lg:col-span-8">
+    <span class="kicker text-cobalt"><%= post.tag %> · <%= post.read %> read</span>
+    <h1 class="display-xl mt-6 text-balance"><%= post.title %></h1>
+    <p class="mt-8 font-mono text-[0.78rem] uppercase tracking-widest text-ink-4">
+      <%= post.date %> · <%= post.author %> · Updated <%= post.updated %>
+    </p>
+
+    <div class="article-body mt-12 max-w-prose">
+      <%- post.body %>
+    </div>
+
+    <div class="mt-20 pt-10 rule-t flex flex-wrap items-center justify-between gap-y-4">
+      <p class="kicker text-ink-3">Filed under <span class="text-ink"><%= post.tag %></span></p>
+      <a href="/blog" class="font-mono text-[0.78rem] uppercase tracking-wider text-ink-3 hover:text-ink">← Back to Journal</a>
+    </div>
+  </article>
+
+  <% if (related && related.length) { %>
+    <aside class="col-span-12 lg:col-span-2 lg:col-start-11 lg:sticky lg:top-28 lg:self-start">
+      <p class="kicker mb-5">Continue reading</p>
+      <ul class="space-y-6">
+        <% related.forEach((r) => { %>
+          <li>
+            <a href="/blog/<%= r.slug %>" class="block group">
+              <span class="kicker text-cobalt text-[0.65rem]"><%= r.tag %></span>
+              <p class="font-display text-[1rem] leading-snug mt-2 group-hover:text-cobalt transition-colors"><%= r.title %></p>
+              <p class="font-mono text-[0.7rem] uppercase tracking-wider text-ink-4 mt-2"><%= r.read %></p>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </aside>
+  <% } %>
+</main>
+
+<%- include('partials/cart-drawer') %>
+<%- include('partials/footer') %>
+<%- include('partials/scripts') %>
