@@ -97,24 +97,24 @@ const COUNTRIES = [
 
 const OPTIONS = {
   EU_PRIORITY: [
-    { id: 'standard', label: 'EU Standard',  eta: '2–3 business days', etaShort: '2–3 days', price: 14.99, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
-    { id: 'express',  label: 'EU Express',   eta: '1–2 business days', etaShort: '1–2 days', price: 32.00, blurb: 'Same-day dispatch (orders before 14:00 CET) · priority routing' },
+    { id: 'standard', label: 'EU Standard',  eta: '2–3 business days', etaShort: '2–3 days', price: 2.99, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
+    { id: 'express',  label: 'EU Express',   eta: '1–2 business days', etaShort: '1–2 days', price: 4.99, blurb: 'Same-day dispatch (orders before 14:00 CET) · priority routing' },
   ],
   EU_STANDARD: [
-    { id: 'standard', label: 'EU Standard',  eta: '3–5 business days', etaShort: '3–5 days', price: 14.99, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
-    { id: 'express',  label: 'EU Express',   eta: '2–3 business days', etaShort: '2–3 days', price: 32.00, blurb: 'Priority routing from our EU hub · same-day dispatch' },
+    { id: 'standard', label: 'EU Standard',  eta: '3–5 business days', etaShort: '3–5 days', price: 2.99, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
+    { id: 'express',  label: 'EU Express',   eta: '2–3 business days', etaShort: '2–3 days', price: 4.99, blurb: 'Priority routing from our EU hub · same-day dispatch' },
   ],
   EU_NORDIC: [
-    { id: 'standard', label: 'EU Tracked',   eta: '4–7 business days', etaShort: '4–7 days', price: 18.00, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
-    { id: 'express',  label: 'EU Express',   eta: '3–5 business days', etaShort: '3–5 days', price: 38.00, blurb: 'Priority routing · faster carrier handover' },
+    { id: 'standard', label: 'EU Tracked',   eta: '4–7 business days', etaShort: '4–7 days', price: 3.99, blurb: 'Tracked · cold-chain insulated · plain unmarked outer' },
+    { id: 'express',  label: 'EU Express',   eta: '3–5 business days', etaShort: '3–5 days', price: 4.99, blurb: 'Priority routing · faster carrier handover' },
   ],
   UK_CH_NO: [
-    { id: 'standard', label: 'Tracked',           eta: '4–7 business days', etaShort: '4–7 days', price: 22.00, blurb: 'Customs paperwork included · plain unmarked outer' },
-    { id: 'express',  label: 'Express Tracked',   eta: '3–5 business days', etaShort: '3–5 days', price: 42.00, blurb: 'Priority customs handling · faster transit' },
+    { id: 'standard', label: 'Tracked',           eta: '4–7 business days', etaShort: '4–7 days', price: 3.99, blurb: 'Customs paperwork included · plain unmarked outer' },
+    { id: 'express',  label: 'Express Tracked',   eta: '3–5 business days', etaShort: '3–5 days', price: 4.99, blurb: 'Priority customs handling · faster transit' },
   ],
   INTL: [
-    { id: 'standard', label: 'International Tracked', eta: '7–14 business days', etaShort: '7–14 days', price: 39.00, blurb: 'Tracked · plain unmarked outer · customs declared accurately' },
-    { id: 'express',  label: 'International Express', eta: '5–8 business days',  etaShort: '5–8 days',  price: 79.00, blurb: 'Premium courier · priority customs · door-to-door tracking' },
+    { id: 'standard', label: 'International Tracked', eta: '7–14 business days', etaShort: '7–14 days', price: 4.99, blurb: 'Tracked · plain unmarked outer · customs declared accurately' },
+    { id: 'express',  label: 'International Express', eta: '5–8 business days',  etaShort: '5–8 days',  price: 4.99, blurb: 'Premium courier · priority customs · door-to-door tracking' },
   ],
 };
 
