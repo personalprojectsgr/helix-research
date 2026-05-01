@@ -6,6 +6,55 @@ const posts = require('../data/posts');
 module.exports = function buildPagesRouter({ catalog }) {
   const router = express.Router();
 
+  router.get('/robots.txt', (req, res) => {
+    req.skipLog = true;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol || 'https';
+    const host = req.headers['x-forwarded-host'] || req.get('host') || '';
+    const sitemap = host ? `Sitemap: ${proto}://${host}/sitemap.xml\n` : '';
+    res.type('text/plain').send(
+      'User-agent: *\n' +
+      'Allow: /\n' +
+      'Disallow: /api/\n' +
+      'Disallow: /cart\n' +
+      'Disallow: /checkout\n' +
+      'Disallow: /order/\n' +
+      '\n' +
+      'User-agent: facebookexternalhit\n' +
+      'Allow: /\n' +
+      '\n' +
+      'User-agent: meta-externalagent\n' +
+      'Allow: /\n' +
+      '\n' +
+      sitemap
+    );
+  });
+
+  router.get('/sitemap.xml', (req, res) => {
+    req.skipLog = true;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol || 'https';
+    const host = req.headers['x-forwarded-host'] || req.get('host') || '';
+    const base = `${proto}://${host}`;
+    const urls = [
+      '/', '/shop', '/about', '/quality', '/shipping', '/blog', '/faq', '/contact',
+      '/legal/terms', '/legal/privacy', '/legal/refund', '/legal/shipping', '/legal/disclaimer',
+      ...catalog.categories.map((c) => `/category/${c.id}`),
+      ...catalog.products.map((p) => `/p/${p.slug || p.id}`),
+      ...posts.all().map((p) => `/blog/${p.slug}`),
+    ];
+    const today = new Date().toISOString().slice(0, 10);
+    const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+      urls.map((u) => `  <url><loc>${base}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') +
+      '\n</urlset>\n';
+    res.type('application/xml').send(xml);
+  });
+
+  router.get('/favicon.ico', (req, res) => {
+    req.skipLog = true;
+    res.set('Cache-Control', 'public, max-age=86400');
+    res.status(204).end();
+  });
+
   router.get('/', (req, res) => {
     res.render('home', {
       title: 'Helix Research \u2014 Research Peptides Shipped from the EU',

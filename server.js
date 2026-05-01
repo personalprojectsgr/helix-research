@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const { Log } = require('./lib/logger');
 const { ensureSessionId } = require('./lib/id');
 const visitors = require('./lib/visitors');
+const bots = require('./lib/bots');
 const catalog = require('./lib/catalog');
 const orders = require('./lib/orders');
 const plisio = require('./lib/plisio');
@@ -27,6 +28,20 @@ app.set('trust proxy', true);
 
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  if (bots.isBaitPath(req.path)) {
+    req.skipLog = true;
+    res.set('Cache-Control', 'public, max-age=86400');
+    return res.status(404).end();
+  }
+  const ua = req.headers['user-agent'] || '';
+  if (bots.isBotUA(ua)) {
+    req.isBot = true;
+    req.botLabel = bots.botLabel(ua);
+  }
+  next();
+});
+
 app.post(
   '/api/plisio/webhook',
   express.raw({ type: '*/*', limit: '256kb' }),
@@ -38,8 +53,12 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 
 app.use((req, res, next) => {
   const sid = ensureSessionId(req, res);
-  req.sessionRef = sid.slice(0, 8);
-  req.visitor = visitors.getOrCreateVisitor(req, req.sessionRef);
+  if (req.isBot) {
+    req.sessionRef = `bot-${req.botLabel || 'x'}`;
+  } else {
+    req.sessionRef = sid.slice(0, 8);
+    req.visitor = visitors.getOrCreateVisitor(req, req.sessionRef);
+  }
   res.locals.store = {
     name: STORE_NAME,
     currency: STORE_CURRENCY,
@@ -55,8 +74,9 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   const start = Date.now();
   res.on('finish', () => {
+    if (req.skipLog) return;
     const ms = Date.now() - start;
-    Log.http(req.method, req.originalUrl, res.statusCode, ms, req.sessionRef);
+    Log.http(req.method, req.originalUrl, res.statusCode, ms, req.sessionRef, req.botLabel);
   });
   next();
 });
