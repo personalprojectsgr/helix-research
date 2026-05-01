@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const { Log } = require('./lib/logger');
 const { ensureSessionId } = require('./lib/id');
+const visitors = require('./lib/visitors');
 const catalog = require('./lib/catalog');
 const orders = require('./lib/orders');
 const plisio = require('./lib/plisio');
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true, limit: '64kb' }));
 app.use((req, res, next) => {
   const sid = ensureSessionId(req, res);
   req.sessionRef = sid.slice(0, 8);
+  req.visitor = visitors.getOrCreateVisitor(req, req.sessionRef);
   res.locals.store = {
     name: STORE_NAME,
     currency: STORE_CURRENCY,

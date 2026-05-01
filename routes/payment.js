@@ -22,10 +22,19 @@ async function webhookHandler(req, res) {
     Log.error('plisio_webhook_unknown_order', null, `txn=${txnId} order=${orderNumber}`);
     return res.status(200).json({ ok: false, error: 'unknown_order' });
   }
-  if (order.payment.txnId && txnId !== order.payment.txnId &&
-      !(order.payment.childTxnIds || []).includes(txnId)) {
-    if (data.status !== 'cancelled duplicate') {
-      Log.error('plisio_webhook_txn_mismatch', null, `${order.id} expected=${order.payment.txnId} got=${txnId}`);
+  const known = order.payment.txnId === txnId
+    || (order.payment.childTxnIds || []).includes(txnId);
+  if (!known && order.payment.txnId) {
+    if (data.parent_id && data.parent_id === order.payment.txnId) {
+      const updatedChildren = Array.from(new Set([...(order.payment.childTxnIds || []), txnId]));
+      orders.updateOrder(order.id, { payment: { childTxnIds: updatedChildren } }, 'plisio_child_inferred');
+      Log.event('plisio_webhook_child_inferred', order.tracking?.sessionRef,
+        `${order.id} child ${txnId.slice(-8)} (parent ${order.payment.txnId.slice(-8)}, status=${data.status})`);
+    } else if (data.status === 'cancelled duplicate') {
+    } else {
+      Log.error('plisio_webhook_txn_mismatch', null,
+        `${order.id} expected=${order.payment.txnId} got=${txnId} status=${data.status} parent_id=${data.parent_id || '-'}`);
+      return res.status(200).json({ ok: true, ignored: 'txn_mismatch' });
     }
   }
   const lastSeen = `${order.payment.txnId || ''}:${order.payment.lastPlisioStatus || ''}`;
@@ -35,7 +44,7 @@ async function webhookHandler(req, res) {
     return res.json({ ok: true, duplicate: true });
   }
 
-  Log.event('order_created', order.tracking?.sessionRef, `webhook ${order.id} ${order.status} → plisio:${data.status}`);
+  Log.event('order_created', order.tracking?.sessionRef, `webhook ${order.id} ${order.status} -> plisio:${data.status}`);
   const updated = helpers.applyPlisioStatus(order, data, 'webhook');
 
   if (updated.status === 'paid') {
