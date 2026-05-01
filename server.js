@@ -56,10 +56,7 @@ app.use((req, res, next) => {
   const start = Date.now();
   res.on('finish', () => {
     const ms = Date.now() - start;
-    const status = res.statusCode;
-    if (status >= 400 || process.env.LOG_HTTP === 'true') {
-      Log.http(req.method, req.originalUrl, status, ms, req.sessionRef);
-    }
+    Log.http(req.method, req.originalUrl, res.statusCode, ms, req.sessionRef);
   });
   next();
 });
